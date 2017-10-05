@@ -1,5 +1,5 @@
 FROM gitlab/gitlab-runner
-MAINTAINER Pavol Noha <pavol.noha@gmail.com>
+MAINTAINER Vratislav Kalenda <v.kalenda@gmail.com>
 
 ADD runner.sh /runner.sh
 RUN chmod +x /runner.sh

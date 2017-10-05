@@ -3,7 +3,7 @@ set -x
 
 pid=0
 token=()
-gitlab_service_url=http://${GITLAB_HOST}
+gitlab_service_url=${GITLAB_URL}
 
 # SIGTERM-handler
 term_handler() {
@@ -28,7 +28,7 @@ yes '' | gitlab-runner register --url ${gitlab_service_url} \
                                 --docker-image "docker:latest" \
                                 --docker-volumes /root/m2:/root/.m2 \
                                 --docker-volumes /var/run/docker.sock:/var/run/docker.sock \
-                                --docker-extra-hosts ${GITLAB_HOST}:${GITLAB_IP}
+
 
 # assign runner token
 token=$(cat /etc/gitlab-runner/config.toml | grep token | awk '{print $3}' | tr -d '"')
