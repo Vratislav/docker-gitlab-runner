@@ -29,11 +29,19 @@ yes '' | gitlab-runner register --url ${gitlab_service_url} \
                                 --docker-volumes /root/m2:/root/.m2 \
                                 --docker-volumes /var/run/docker.sock:/var/run/docker.sock \
 
-# Wait for a while before the runner gets its token
-sleep 5
+while :
+do
+  # assign runner token
+  token=$(cat /etc/gitlab-runner/config.toml | grep token | awk '{print $3}' | tr -d '"')
+  if [ -n token ]
+    then
+      break
+  fi
+  # On failure, wait for a while before the runner gets its token
+  sleep 1
+done
 
-# assign runner token
-token=$(cat /etc/gitlab-runner/config.toml | grep token | awk '{print $3}' | tr -d '"')
+
 
 # run multi-runner
 gitlab-ci-multi-runner run --user=gitlab-runner --working-directory=/home/gitlab-runner & pid="$!"
