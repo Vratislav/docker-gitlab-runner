@@ -28,7 +28,6 @@ yes '' | gitlab-runner register --url ${gitlab_service_url} \
                                 --docker-image "docker:latest" \
                                 --docker-volumes /root/m2:/root/.m2 \
                                 --docker-volumes /var/run/docker.sock:/var/run/docker.sock \
-                                --docker-extra-hosts ${GITLAB_HOST}:${GITLAB_IP}
 
 while :
 do
